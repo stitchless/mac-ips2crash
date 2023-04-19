@@ -47,7 +47,7 @@ func main() {
 		outputPath = filepath.Join(outputPath, fileName)
 	}
 
-	err = os.WriteFile(outputPath, []byte(crashReport.CrashFormat), 0644)
+	err = os.WriteFile(outputPath, []byte(crashReport.Output), 0644)
 	if err != nil {
 		fmt.Println(err)
 		return

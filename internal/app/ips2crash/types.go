@@ -1,13 +1,14 @@
 package ips2crash
 
 type IPSCrash struct {
-	FileName     string
-	FilePath     string
-	LeadingText  []string   `json:"leading_text"`
-	Header       IPSHeader  `json:"header"`
-	Payload      IPSPayload `json:"payload"`
-	TrailingText []string   `json:"trailing_text"`
-	CrashFormat  string     `json:"crash_format"`
+	FileName        string
+	FilePath        string
+	LeadingText     []string   `json:"leading_text"`
+	Header          IPSHeader  `json:"header"`
+	Payload         IPSPayload `json:"payload"`
+	TrailingText    []string   `json:"trailing_text"`
+	FormattedReport string     `json:"crash_format"`
+	Output          string     `json:"output"`
 }
 
 type IPSHeader struct {

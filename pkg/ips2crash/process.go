@@ -32,7 +32,9 @@ func ProcessCrashReport(crashPath string) (ips2crash.IPSCrash, error) {
 	crashReport.FileName = fileName
 	crashReport.FilePath = crashPath
 
-	crashReport.CrashFormat = crashReport.Payload.Format()
+	crashReport.FormattedReport = crashReport.Payload.Format()
+
+	crashReport.Output = ips2crash.CleanOutput(crashReport)
 
 	return crashReport, nil
 }
