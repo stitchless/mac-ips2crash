@@ -32,14 +32,21 @@ func main() {
 		return
 	}
 
-	crashReport, err := ips2crash.ProcessCrashReport(ipsFilePath)
+	file, err := os.ReadFile(ipsFilePath)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fileName := crashReport.FileName
-	fileName = strings.Replace(fileName, filepath.Ext(fileName), ".crash", 1)
+	_, f := filepath.Split(ipsFilePath)
+
+	crashReport, err := ips2crash.ProcessCrashReport(file)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fileName := strings.Replace(f, filepath.Ext(f), ".crash", 1)
 
 	if outputPath == "" {
 		outputPath = filepath.Join(filepath.Dir(ipsFilePath), fileName)

@@ -1,8 +1,6 @@
 package ips2crash
 
 type IPSCrash struct {
-	FileName        string
-	FilePath        string
 	LeadingText     []string   `json:"leading_text"`
 	Header          IPSHeader  `json:"header"`
 	Payload         IPSPayload `json:"payload"`

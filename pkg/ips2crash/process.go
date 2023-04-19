@@ -2,19 +2,12 @@ package ips2crash
 
 import (
 	"errors"
-	"os"
-	"path/filepath"
 
 	"github.com/jpeizer/mac-ips2crash/internal/app/ips2crash"
 )
 
-func ProcessCrashReport(crashPath string) (ips2crash.IPSCrash, error) {
-	file, err := os.ReadFile(crashPath)
-	if err != nil {
-		return ips2crash.IPSCrash{}, err
-	}
-
-	inputFile, err := ips2crash.NewCrashReport(file)
+func ProcessCrashReport(inputBytes []byte) (ips2crash.IPSCrash, error) {
+	inputFile, err := ips2crash.NewCrashReport(inputBytes)
 	if err != nil {
 		return ips2crash.IPSCrash{}, err
 	}
@@ -27,10 +20,6 @@ func ProcessCrashReport(crashPath string) (ips2crash.IPSCrash, error) {
 	if err != nil {
 		return ips2crash.IPSCrash{}, err
 	}
-
-	fileName := filepath.Base(crashPath)
-	crashReport.FileName = fileName
-	crashReport.FilePath = crashPath
 
 	crashReport.FormattedReport = crashReport.Payload.Format()
 

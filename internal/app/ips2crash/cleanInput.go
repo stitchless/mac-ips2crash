@@ -18,6 +18,8 @@ func isJSONObject(line string) bool {
 	return err == nil
 }
 
+// TODO: Account for escaped braces
+
 func NewCrashReport(fileContent []byte) (InputFile, error) {
 	var crashFile InputFile
 
