@@ -12,7 +12,7 @@ type InputFile struct {
 	TrailingText []string
 }
 
-func isJSONObject(line string) bool {
+func IsJSONObject(line string) bool {
 	var js map[string]interface{}
 	err := json.Unmarshal([]byte(line), &js)
 	return err == nil
@@ -30,7 +30,7 @@ func NewCrashReport(fileContent []byte) (InputFile, error) {
 	lines := splitLines(fileContent)
 
 	for _, line := range lines {
-		if isJSONObject(line) {
+		if IsJSONObject(line) {
 			crashFile.Header = line
 			headerFound = true
 			continue
