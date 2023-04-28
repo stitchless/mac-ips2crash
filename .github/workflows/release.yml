@@ -21,7 +21,6 @@ jobs:
         name: Check if tag is part of main branch
         run: |
           git fetch --all --tags
-          git checkout ${{ github.ref }}
           TAG_COMMIT_HASH=$(git rev-parse HEAD)
           MAIN_BRANCH_COMMIT_HASH=$(git rev-parse origin/main)
           if git merge-base --is-ancestor $TAG_COMMIT_HASH $MAIN_BRANCH_COMMIT_HASH; then
