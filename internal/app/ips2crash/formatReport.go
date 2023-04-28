@@ -115,12 +115,10 @@ func (ips IPSPayload) Format() string {
 
 	for i, thread := range ips.Threads {
 		if thread.Triggered {
-			if thread.Name != "" {
-				if thread.Queue != "" {
-					sb.WriteString(fmt.Sprintf("%-23s %d  %s  Dispatch queue: %s\n", "Crashed Thread:", i, thread.Name, thread.Queue))
-				} else {
-					sb.WriteString(fmt.Sprintf("%-23s %d  %s\n", "Crashed Thread:", i, thread.Name))
-				}
+			if thread.Queue != "" {
+				sb.WriteString(fmt.Sprintf("%-23s %d  %s  Dispatch queue: %s\n", "Crashed Thread:", i, thread.Name, thread.Queue))
+			} else if thread.Name != "" {
+				sb.WriteString(fmt.Sprintf("%-23s %d  %s\n", "Crashed Thread:", i, thread.Name))
 			} else {
 				sb.WriteString(fmt.Sprintf("%-23s %d\n", "Crashed Thread:", i))
 			}
@@ -159,9 +157,9 @@ func (ips IPSPayload) Format() string {
 
 	if ips.Termination.Namespace != "" {
 		if ips.Termination.Indicator != "" {
-			sb.WriteString(fmt.Sprintf("%-23s Namespace Signal, %s %d %s\n", "Termination Reason:", ips.Termination.Namespace, ips.Termination.Code, ips.Termination.Indicator))
+			sb.WriteString(fmt.Sprintf("%-23s Namespace %s, Code %d %s\n", "Termination Reason:", ips.Termination.Namespace, ips.Termination.Code, ips.Termination.Indicator))
 		} else {
-			sb.WriteString(fmt.Sprintf("%-23s Namespace Signal, %s Code %d\n", "Termination Reason:", ips.Termination.Namespace, ips.Termination.Code))
+			sb.WriteString(fmt.Sprintf("%-23s Namespace %s, Code %d\n", "Termination Reason:", ips.Termination.Namespace, ips.Termination.Code))
 		}
 	}
 
@@ -252,6 +250,8 @@ func (ips IPSPayload) Format() string {
 		}
 		if thread.Name != "" {
 			threadString += ":: " + thread.Name
+		} else if thread.Queue != "" {
+			threadString += ":: Dispatch queue: " + thread.Queue
 		} else {
 			threadString += ":"
 		}
@@ -265,12 +265,15 @@ func (ips IPSPayload) Format() string {
 
 			if frame.Symbol != "" {
 				if frame.SymbolLocation != 0 {
+					// symbol + offset
 					sb.WriteString(fmt.Sprintf("%-3d %-32s %#016x %s + %d\n", i, ips.UsedImages[frame.ImageIndex].Name, targetInt, frame.Symbol, frame.SymbolLocation))
 					continue
 				}
-				sb.WriteString(fmt.Sprintf("%-3d %-32s %#016x %s\n", i, ips.UsedImages[frame.ImageIndex].Name, targetInt, frame.Symbol))
+				// symbol
+				sb.WriteString(fmt.Sprintf("%-3d %-32s %#016x %s + 0\n", i, ips.UsedImages[frame.ImageIndex].Name, targetInt, frame.Symbol))
 				continue
 			}
+			// offset
 			sb.WriteString(fmt.Sprintf("%-3d %-32s %#016x %#x + %d\n", i, ips.UsedImages[frame.ImageIndex].Name, targetInt, baseInt, frame.ImageOffset))
 		}
 		sb.WriteString("\n")
