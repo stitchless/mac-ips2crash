@@ -2,6 +2,8 @@
 
 [![Go IPS2Crash Checks](https://github.com/jpeizer/mac-ips2crash/actions/workflows/status.yml/badge.svg)](https://github.com/jpeizer/mac-ips2crash/actions/workflows/status.yml)
 
+[![Go IPS2Crash Release](https://github.com/jpeizer/mac-ips2crash/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/jpeizer/mac-ips2crash/actions/workflows/release.yml)
+
 This is a simple tool to convert a macOS IPS file into a .crash report
 that can be used with legacy tools and pipelines to symbolicate the crash.  It can be used as a standalone tool or as a library.
 
