@@ -7,14 +7,9 @@ that can be used with legacy tools and pipelines to symbolicate the crash.  It c
 
 This is my first open source project I am attempting to make for public use, so if you run into any issues, don't hesitate to open an issue or PR.
 
-## Usage
+## Tool Usage
 ```shell
-go get github.com/jpeizer/mac-ips2crash
-```
-
-```shell
-
-```shell
+# Tool Release Binaries are available on the releases page
 # Usage as a standalone tool
 Usage of ./mac-ips2crash:
   -i string
@@ -25,7 +20,9 @@ Usage of ./mac-ips2crash:
 ```
 
 # Library Usage
-
+```shell
+go get github.com/jpeizer/mac-ips2crash
+```
 ```go
 package main
 
