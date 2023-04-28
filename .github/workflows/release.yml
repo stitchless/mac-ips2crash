@@ -18,9 +18,18 @@ jobs:
         with:
           fetch-depth: 0
       -
-        name: Exit if not on master branch
-        if: endsWith(github.ref, 'main') == false
-        run: exit -1
+        name: Check if tag is part of main branch
+        run: |
+          git fetch --all --tags
+          git checkout ${{ github.ref }}
+          TAG_COMMIT_HASH=$(git rev-parse HEAD)
+          MAIN_BRANCH_COMMIT_HASH=$(git rev-parse origin/main)
+          if git merge-base --is-ancestor $TAG_COMMIT_HASH $MAIN_BRANCH_COMMIT_HASH; then
+            echo "Tag is part of main branch."
+          else
+            echo "Tag is not part of main branch. Exiting."
+            exit 1
+          fi
       -
         name: Set up Go
         uses: actions/setup-go@v4
