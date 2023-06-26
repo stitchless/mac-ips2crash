@@ -23,7 +23,7 @@ Usage of ./mac-ips2crash:
 
 # Library Usage
 ```shell
-go get github.com/jpeizer/mac-ips2crash
+go get github.com/stitchless/mac-ips2crash
 ```
 ```go
 package main
@@ -32,7 +32,7 @@ import (
     "fmt"
     "os"
 
-    "github.com/jpeizer/mac-ips2crash"
+    "github.com/stitchless/mac-ips2crash"
 )
 
 func main() {
